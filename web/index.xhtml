@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Flores Marianela</title>
+    </h:head>
+    <h:body>
+        <p:panel id="pnlFiguras" header="FIGURAS" footer="Escuela de Minas">
+            <h:form id="frmFiguras">
+                
+                
+                <p:panelGrid id="tblBotones" columns="2">
+                    <p:commandButton id="btnAgregarFiguras" value="Agregar" oncomplete="PF('agregarFiguras').show()" update="tblMuestraFiguras"/>
+                    
+                    
+                </p:panelGrid>
+                <h:panelGrid id="tblMuestraFiguras" columns="3">
+                    <p:dataTable id="dtTblFiguras" value="#{figuraFormBean.figuras.figuras}" var="cadaFigura" emptyMessage="No hay figuras">
+                        <p:column headerText="NOMBRE">
+                            <p:outputLabel value="#{cadaFigura.nombre}"/>
+                        </p:column>
+                        <p:column headerText="VALOR LADO">
+                            <p:outputLabel value="#{cadaFigura.lado}"/>
+                        </p:column>
+                        <p:column headerText="PERIMETRO">
+                            <p:outputLabel value="#{cadaFigura.perimetro}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>                
+            
+        
+        </h:form>
+        <p:dialog id="dlgAltaFigura" widgetVar="agregarFiguras" header="Alta de Figura" resizable="false" showEffect="explode" hideEffect="explode" modal="treu">
+            <p:growl id="mensajesAltaFigura" showDetail="false" showSummary="true" sticky="false"/>
+            
+            <h:form id="frmAltaFigura">
+                <p:panelGrid id="tblAltaFiguras" columns="2">
+                    <p:outputLabel for="txtLado" value="Lado:"/>
+                    <p:inputText id="txtLado" value="#{figuraFormBean.lado}"/>
+                    
+                    <p:outputLabel id="lblNombre" value="Nombre:"/>
+                    <p:selectOneMenu id="nombre" value="#{figuraFormBean.unNombre}" panelStyle="width:180px" effect="fade" style="width:160px" filter="true">
+                        <f:selectItems value="#{figuraFormBean.nombres}"/>
+                    </p:selectOneMenu>
+                    
+                    <p:commandButton id="btnAgregarFigura" value="Agregar" actionListener="#{figuraFormBean.agregarFiguras()}" update=":frmFiguras :mensajesAltaFigura" oncomplete="PF('agregarFiguras').hide()"/>
+                    
+                    <p:commandButton id="btnCerrarAltaFiguras" value="Salir" oncomplete="PF('agregarFiguras').hide()"/>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>      
+      </p:panel>
+                       
+    </h:body>
+</html>
+
